@@ -42,11 +42,11 @@ public class GameManager : MonoBehaviour
         Destroy(col.gameObject);
     }
 
-    public int GetScore()
+    public int ComputeScore(int score)
     {
-        return 100 * multiplier;
+        return score * multiplier;
     }
-
+    
     void UpdateGUI(){
         PlayerPrefs.SetInt("Streak", streak);
         PlayerPrefs.SetInt("Mult", multiplier);

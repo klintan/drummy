@@ -35,10 +35,12 @@ public class Activator : MonoBehaviour
         {
             ExplodeBeatBox(beatBox);
             gm.GetComponent<GameManager>().AddStreak();
-            AddScore();
+            
+            SetScore(gm.GetComponent<GameManager>().ComputeScore(100));
 
         } else if(Input.GetKeyDown(key)&&!active){
             gm.GetComponent<GameManager>().ResetStreak();
+            SetScore(-50);
         }
     }
 
@@ -72,14 +74,15 @@ public class Activator : MonoBehaviour
     }
 
 
-    void AddScore()
+    void SetScore(int score)
     {
-        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + gm.GetComponent<GameManager>().GetScore());
+        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + score);
     }
 
     void ExplodeBeatBox(GameObject beatBox)
     {
-
+        if (beatBox != null)
+        {
         //get current scale
         Vector3 scale = beatBox.transform.localScale;
 
@@ -136,5 +139,6 @@ public class Activator : MonoBehaviour
 
         //destroy original cube
         Destroy(beatBox.gameObject);
+        }
     }
 }
